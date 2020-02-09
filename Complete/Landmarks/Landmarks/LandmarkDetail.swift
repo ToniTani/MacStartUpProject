@@ -10,6 +10,8 @@ import SwiftUI
 
 struct LandmarkDetail: View {
     var landmark: Landmark
+    
+    @State private var showingAlert = false
 
     var body: some View {
         VStack {
@@ -32,6 +34,25 @@ struct LandmarkDetail: View {
                     Text(landmark.state)
                         .font(.subheadline)
                     
+                }
+                Button(action: {
+                self.showingAlert = true
+                }) {
+                    HStack {
+                        Image(systemName: "trash")
+                            .font(.title)
+                        Text("Delete")
+                            .fontWeight(.semibold)
+                            .font(.title)
+                    }
+                }.padding(8)
+                .foregroundColor(Color.white)
+                .background(Color.black)
+                .cornerRadius(10)
+                    
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Are you sure you want to delete?"), message: Text("\(landmark.name)"), primaryButton: .default(Text("Yes")), secondaryButton:
+                        .destructive(Text("No")))
                 }
             }
                 
